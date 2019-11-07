@@ -13,8 +13,18 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const books = await getAllBooks();
-
+  
   res.status(200).send(books);
+});
+
+router.get("/search", async (req, res) => {
+  const searchValue = req.query.search;
+  const books = await searchBooks(searchValue);
+  if (!books) {
+    res.status(404).send();
+  } else {
+    res.send(books);
+  }
 });
 
 router.get("/:id", async (req, res) => {
@@ -31,15 +41,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/search", async (req, res) => {
-  const searchValue = req.query.search;
-  const books = await searchBooks(searchValue);
-  if (!books) {
-    res.status(404).send();
-  } else {
-    res.send(books);
-  }
-});
+
 
 router.delete("/:id", async (req, res) => {
 
