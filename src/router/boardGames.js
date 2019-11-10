@@ -11,9 +11,15 @@ import {
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const boardGames = await getAllBoardGames();
-  
-  res.status(200).send(boardGames);
+  try {
+    const boardGames = await getAllBoardGames();
+    res.status(200).send(boardGames);
+  }
+  catch(e) {
+    log.verbose(e)
+    res.status(500).send({ error: 'Internal Server Error' });
+  }
+
 });
 
 router.get("/search", async (req, res) => {

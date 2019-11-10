@@ -7,6 +7,7 @@ import {
   deleteBook,
   searchBooks
 } from "../services/books/bookRepo";
+import log from '../utils/log';
 
 // Create a new rouer to handle books
 const router = express.Router();
@@ -28,6 +29,7 @@ router.get("/search", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  
   const {
     id
   } = req.params;
@@ -53,14 +55,15 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const newBook = req.body;
+  req.loggerMiddleware();
 
+  const newBook = req.body;
   try {
     const book = await createBook(newBook);
 
     res.status(201).send(book);
   } catch (e) {
-    console.log(e);
+    log.verbose(e)
     res.status(500).send({
       error: 'Internal Server Error'
     });
@@ -79,7 +82,7 @@ router.put("/:id", async (req, res) => {
 
     res.status(204).send();
   } catch (e) {
-    console.log(e);
+    log.verbose(e);
     res.status(500).send({
       error: 'Internal Server Error'
     });
