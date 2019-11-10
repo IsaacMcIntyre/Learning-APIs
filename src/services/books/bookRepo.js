@@ -20,4 +20,4 @@ export const updateBook = (id, book) =>
 
 export const deleteBook = id => Book.deleteOne({ _id: id }).exec();
 
-export const searchBooks = searchValue => Book.find({name: {$regex : "(?i).*"+searchValue+".*"}})
+export const searchBooks = searchValue => Book.find({name: {$regex : "(?i).*"+searchValue+".*"}});

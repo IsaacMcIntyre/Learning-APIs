@@ -8,8 +8,9 @@ const boardGameSchema = new Schema({
 	'category': String,
   'minPlayers': Number,
   'maxPlayers': Number
-});
+},
+{ collection : 'boardGames' });
 
-const Book = model('book', bookSchema);
+const BoardGame = model('boardGame', boardGameSchema);
 
-export default Book;
+export default BoardGame;
