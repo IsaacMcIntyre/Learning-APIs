@@ -17,3 +17,5 @@ export const createBoardGame = boardGame => {
 };
 
 export const searchBoardGames = searchValue => BoardGame.find({name: {$regex : "(?i).*"+searchValue+".*"}});
+
+export const playersSearchBoardGames = playersNumber => BoardGame.find({$and: [{minPlayers: { $lt: playersNumber+1 }}, {maxPlayers: { $gt: playersNumber-1 }}]});
